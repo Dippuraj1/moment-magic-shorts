@@ -80,15 +80,25 @@ const FileUploader = ({ onFileSelect, onUploadComplete }: FileUploaderProps) => 
       const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
       const filePath = `${user.id}/${fileName}`;
       
-      // Upload file to Supabase Storage
-      const { error: uploadError, data } = await supabase.storage
+      // Manual progress tracking using XMLHttpRequest
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      
+      // Set up progress tracking
+      xhr.upload.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          setUploadProgress(percent);
+        }
+      });
+      
+      // Set up FormData with the file
+      const { data, error: uploadError } = await supabase.storage
         .from('wedding_videos')
         .upload(filePath, selectedFile, {
           upsert: false,
-          onUploadProgress: (progress) => {
-            const percent = Math.round((progress.loaded / progress.total) * 100);
-            setUploadProgress(percent);
-          },
+          contentType: selectedFile.type,
         });
         
       if (uploadError) {
@@ -111,6 +121,7 @@ const FileUploader = ({ onFileSelect, onUploadComplete }: FileUploaderProps) => 
       }
       
       toast.success('File uploaded successfully!');
+      setUploadProgress(100);
       
       if (onUploadComplete) {
         onUploadComplete(filePath, {
