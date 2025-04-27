@@ -1,5 +1,14 @@
 
 project_id = "lcjwzdxejaoivwvvnbcd"
 
+[auth]
+# Enable both email/password and OAuth providers
+enable_signup = true
+disable_signup = false
+
+# Auth providers
+[auth.external.google]
+enabled = true
+
 [functions.shotstack]
 verify_jwt = true
