@@ -1,9 +1,17 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import FeatureCard from '@/components/FeatureCard';
 import Testimonial from '@/components/Testimonial';
 import { Video, Clock, Share, Upload, FileVideo, Image } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Index = () => {
   return (
@@ -28,18 +36,37 @@ const Index = () => {
             </div>
           </div>
           <div className="md:w-1/2">
-            <div className="relative">
-              <div className="bg-white p-3 rounded-xl shadow-xl">
-                <img 
-                  src="/lovable-uploads/photo-1649972904349-6e44c42644a7.jpg" 
-                  alt="Wedding Couple Moment" 
-                  className="w-full rounded-lg object-cover" 
-                />
-                <div className="absolute -bottom-4 -right-4 bg-teal-500 text-white py-2 px-4 rounded-lg shadow-md">
-                  AI-Powered Wedding Videos
-                </div>
+            <Carousel className="relative w-full max-w-xl mx-auto">
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="relative">
+                    <div className="bg-white p-3 rounded-xl shadow-xl">
+                      <img 
+                        src="/lovable-uploads/8eb93d5b-48dd-43df-8b30-14d39c00c07e.png" 
+                        alt="Wedding Ceremony Detail" 
+                        className="w-full h-[400px] rounded-lg object-cover" 
+                      />
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="relative">
+                    <div className="bg-white p-3 rounded-xl shadow-xl">
+                      <img 
+                        src="/lovable-uploads/66cda6ab-7227-473f-8a7a-ddc1633e41d1.png" 
+                        alt="Wedding Celebration" 
+                        className="w-full h-[400px] rounded-lg object-cover" 
+                      />
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+              <div className="absolute -bottom-4 -right-4 bg-teal-500 text-white py-2 px-4 rounded-lg shadow-md z-10">
+                AI-Powered Wedding Videos
               </div>
-            </div>
+            </Carousel>
           </div>
         </div>
       </section>
