@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,31 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for Magic Moments
+				teal: {
+					50: '#e6fafa',
+					100: '#b3f1f1',
+					200: '#80e8e8',
+					300: '#4ddfdf',
+					400: '#33d9d9',
+					500: '#1ad2d2',
+					600: '#17bdbd',
+					700: '#149494',
+					800: '#107070',
+					900: '#0c4c4c',
+				},
+				coral: {
+					50: '#fff0ee',
+					100: '#ffd6d0',
+					200: '#ffbcb3',
+					300: '#ffa295',
+					400: '#ff8978',
+					500: '#ff6f5a',
+					600: '#e56551',
+					700: '#b35040',
+					800: '#803930',
+					900: '#4d2220',
 				}
 			},
 			borderRadius: {
@@ -70,25 +96,43 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'pulse-subtle': {
+					'0%, 100%': { opacity: 1 },
+					'50%': { opacity: 0.8 }
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' }
+				},
+				'progress': {
+					'0%': { width: '0%' },
+					'100%': { width: '100%' }
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-subtle': 'pulse-subtle 2s infinite',
+				'bounce-subtle': 'bounce-subtle 2s infinite',
+				'progress-fast': 'progress 2s ease-in-out forwards',
+				'progress-slow': 'progress 8s ease-in-out forwards',
+				'shimmer': 'shimmer 2s infinite linear'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'hero-pattern': 'linear-gradient(to right bottom, rgba(104, 213, 210, 0.8), rgba(255, 255, 255, 0.8))',
+				'shimmer-gradient': 'linear-gradient(to right, rgba(104, 213, 210, 0.1) 25%, rgba(104, 213, 210, 0.2) 50%, rgba(104, 213, 210, 0.1) 75%)'
 			}
 		}
 	},
