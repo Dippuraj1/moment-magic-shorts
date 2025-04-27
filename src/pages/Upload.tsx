@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
@@ -6,6 +7,7 @@ import FileUploader from '@/components/FileUploader';
 import ProcessingStatus from '@/components/ProcessingStatus';
 import VideoPlayer from '@/components/VideoPlayer';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -14,43 +16,57 @@ const Upload = () => {
   const [progress, setProgress] = useState(0);
   const [processingStage, setProcessingStage] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
+  const [uploadedFilePath, setUploadedFilePath] = useState('');
+  const [videoData, setVideoData] = useState<{
+    title: string;
+    filename: string;
+    fileSize: number;
+    storagePath: string;
+  } | null>(null);
   
   const handleFileSelect = (selectedFile: File) => {
     setFile(selectedFile);
     
-    // Create a temporary preview URL (in a real app, this would be handled differently)
+    // Create a temporary preview URL
     const url = URL.createObjectURL(selectedFile);
     setPreviewUrl(url);
   };
   
-  const handleProcessing = () => {
-    if (!file) {
-      toast.error('Please select a file first');
+  const handleUploadComplete = (filePath: string, fileData: {
+    title: string;
+    filename: string;
+    fileSize: number;
+    storagePath: string;
+  }) => {
+    setUploadedFilePath(filePath);
+    setVideoData(fileData);
+  };
+  
+  const handleProcessing = async () => {
+    if (!uploadedFilePath || !videoData) {
+      toast.error('Please upload a file first');
       return;
     }
     
     setIsProcessing(true);
-    setProcessingStage('Uploading');
+    setProcessingStage('Preparing video for processing');
     setProgress(0);
     
-    // Simulate upload progress
-    const uploadInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(uploadInterval);
-          setProcessingStage('Analyzing video content');
-          simulateAIProcessing();
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 200);
+    try {
+      // Call Shotstack API via Edge Function (which we'll implement later)
+      // For now, simulate the processing
+      simulateProcessing();
+    } catch (error) {
+      console.error('Processing error:', error);
+      toast.error('Failed to process video');
+      setIsProcessing(false);
+    }
   };
   
-  const simulateAIProcessing = () => {
+  const simulateProcessing = () => {
     setProgress(0);
     
-    // Simulate AI processing with multiple stages
+    // Simulate processing stages
     const stages = [
       'Analyzing video content',
       'Detecting emotional moments',
@@ -109,9 +125,12 @@ const Upload = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <FileUploader onFileSelect={handleFileSelect} />
+                <FileUploader 
+                  onFileSelect={handleFileSelect} 
+                  onUploadComplete={handleUploadComplete}
+                />
                 
-                {file && (
+                {uploadedFilePath && (
                   <div className="mt-6 text-center">
                     <button 
                       onClick={handleProcessing}
