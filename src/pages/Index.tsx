@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
@@ -32,9 +31,9 @@ const Index = () => {
             <div className="relative">
               <div className="bg-white p-3 rounded-xl shadow-xl">
                 <img 
-                  src="/lovable-uploads/e82d8bbf-0f37-4472-bc67-946de5ed0bd6.png" 
-                  alt="Wedding Video Maker" 
-                  className="w-full rounded-lg" 
+                  src="/lovable-uploads/photo-1649972904349-6e44c42644a7.jpg" 
+                  alt="Wedding Couple Moment" 
+                  className="w-full rounded-lg object-cover" 
                 />
                 <div className="absolute -bottom-4 -right-4 bg-teal-500 text-white py-2 px-4 rounded-lg shadow-md">
                   AI-Powered Wedding Videos
