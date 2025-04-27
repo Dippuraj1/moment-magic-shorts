@@ -9,7 +9,48 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      wedding_videos: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration: number | null
+          file_size: number | null
+          filename: string
+          id: string
+          status: Database["public"]["Enums"]["video_status"] | null
+          storage_path: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration?: number | null
+          file_size?: number | null
+          filename: string
+          id?: string
+          status?: Database["public"]["Enums"]["video_status"] | null
+          storage_path: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration?: number | null
+          file_size?: number | null
+          filename?: string
+          id?: string
+          status?: Database["public"]["Enums"]["video_status"] | null
+          storage_path?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +59,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      video_status: "uploading" | "processing" | "completed" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +174,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      video_status: ["uploading", "processing", "completed", "failed"],
+    },
   },
 } as const
