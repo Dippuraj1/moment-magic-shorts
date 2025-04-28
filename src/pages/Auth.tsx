@@ -7,8 +7,8 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleSignIn = () => {
-    // For now, just redirect to upload page
-    navigate('/upload');
+    // For now, just navigate to upload page
+    navigate('/upload', { replace: true });
   };
 
   return (
@@ -20,7 +20,7 @@ const Auth = () => {
           <div className="flex flex-col gap-4">
             <Button 
               onClick={handleSignIn}
-              className="w-full"
+              className="w-full bg-teal-500 hover:bg-teal-600"
             >
               Sign In
             </Button>
